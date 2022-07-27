@@ -1,8 +1,6 @@
 var board;
 var PlayerR = ['R', 'red']
 var PlayerY = ['Y', 'yellow']
-var PlayerRed = "Red";
-var PlayerYellow = "Yellow";
 var currentPlayer = PlayerR;
 var GameOver = false
 
@@ -42,6 +40,7 @@ function setJeton() {
     let y = parseInt(coords[1]);
 
     board[x][y] = currentPlayer;
+    // On Change la couleur du background pour la case jouer
     this.innerText = currentPlayer[0];
     this.style.backgroundColor = currentPlayer[1];
     if (currentPlayer == PlayerR) {
@@ -50,3 +49,5 @@ function setJeton() {
     else
         currentPlayer = PlayerR
 }
+
+// il manque pour le moment la logique pour voir qui gagne , la 'gravité' l'obligation de jouer en bas du plateau , et d'avoir un jeton sous le nouveau jeton pour le placer
