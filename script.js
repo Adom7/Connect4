@@ -123,15 +123,15 @@ function gagner(line, column, currentPlayer) {
     // Commençons par la manière avec le moins de possibilité soit la victoire vertical (où les 3 jetons sous le jeton joué sont de la couleur du jeton joué)
 
 
-    let TopLeft = false
-    let Left = false
-    let BottomLeft = false
-    let Bottom = false
-    let BottomRight = false
-    let Right = false
-    let TopRight = false
+    // let TopLeft = false
+    // let Left = false
+    // let BottomLeft = false
+    // let Bottom = false
+    // let BottomRight = false
+    // let Right = false
+    // let TopRight = false
 
-
+    // Victoire Vertical
     try {
         if (board[line + 1][column] !== undefined) {
             if (board[line + 1][column] == currentPlayer && board[line + 2][column] == currentPlayer && board[line + 3][column] == currentPlayer) {
@@ -145,6 +145,40 @@ function gagner(line, column, currentPlayer) {
         console.log(error);
     }
 
+
+    // Victoire Horizontal FAIT (Pas super beau comme code , peut mieux faire , mais c'est fonctionnel)
+    try {
+        // Victoire 3 jeton droite
+        if (board[line][column + 1] !== undefined && board[line][column + 2] !== undefined && board[line][column + 3] !== undefined) {
+            if (board[line][column + 1] == currentPlayer && board[line][column + 2] == currentPlayer && board[line][column + 3] == currentPlayer) {
+                return true
+            }
+        }
+        // Victoire 3 jeton gauche
+        if (board[line][column - 1] !== undefined && board[line][column - 2] !== undefined && board[line][column - 3] !== undefined) {
+            if (board[line][column - 1] == currentPlayer && board[line][column - 2] == currentPlayer && board[line][column - 3] == currentPlayer) {
+                return true
+            }
+        }
+        //victoire 2 gauche 1 droite 
+        if (board[line][column - 1] !== undefined && board[line][column - 2] !== undefined && board[line][column + 1] !== undefined) {
+            if (board[line][column - 1] == currentPlayer && board[line][column - 2] == currentPlayer && board[line][column + 1] == currentPlayer) {
+                return true
+            }
+        }
+        // victoire 2 droite 1 gauche
+        if (board[line][column - 1] !== undefined && board[line][column + 1] !== undefined && board[line][column + 2] !== undefined) {
+            if (board[line][column - 1] == currentPlayer && board[line][column + 1] == currentPlayer && board[line][column + 2] == currentPlayer) {
+                return true
+            }
+        }
+        else {
+            return false
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
 
 
     console.log(line, column, currentPlayer);
