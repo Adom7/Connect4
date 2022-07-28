@@ -57,6 +57,7 @@ function setGame() {
 
 function setJeton() {
     if (GameOver) {
+        ClearBoard()
         return
     }
 
@@ -81,7 +82,8 @@ function setJeton() {
     document.getElementById([LowestPlayable] + '-' + [colonne]).style.backgroundColor = currentPlayer
 
     if (gagner(LowestPlayable, colonne, currentPlayer) == true) {
-        console.log(currentPlayer + 'Won the Game , Congrats');
+        console.log(currentPlayer + '  Won the Game , Congrats');
+        return GameOver = true
     }
 
     if (currentPlayer == PlayerR) {
@@ -117,6 +119,9 @@ function gagner(line, column, currentPlayer) {
     // TopRight = board[ligne - 1][colonne + 1]
 
 
+    // Commençons par la manière avec le moins de possibilité soit la victoire vertical (où les 3 jetons sous le jeton joué sont de la couleur du jeton joué)
+
+
     let TopLeft = false
     let Left = false
     let BottomLeft = false
@@ -125,20 +130,25 @@ function gagner(line, column, currentPlayer) {
     let Right = false
     let TopRight = false
 
-    console.log(line, column, currentPlayer);
-    console.log(board[line - 1][column - 1]);
-    console.log(board);
 
-    if (board[ligne][colonne + 1] == currentPlayer) {
-        if (board[ligne][colonne + 2] == currentPlayer) {
-            if (board[ligne][colonne + 3] == currentPlayer) {
-                console.log(currentPlayer + 'WON');
+    try {
+        if (board[line + 1][column] !== undefined) {
+            if (board[line + 1][column] == currentPlayer && board[line + 2][column] == currentPlayer && board[line + 3][column] == currentPlayer) {
                 return true
             }
         }
+        else {
+            return false
+        }
+    } catch (error) {
+        console.log(error);
     }
 
 
+
+    console.log(line, column, currentPlayer);
+    console.log(board[line - 1][column - 1]);
+    console.log(board);
 
 
 
