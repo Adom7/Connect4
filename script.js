@@ -129,6 +129,16 @@ function gagner(line, column, currentPlayer) {
     console.log(board[line - 1][column - 1]);
     console.log(board);
 
+    if (board[ligne][colonne + 1] == currentPlayer) {
+        if (board[ligne][colonne + 2] == currentPlayer) {
+            if (board[ligne][colonne + 3] == currentPlayer) {
+                console.log(currentPlayer + 'WON');
+                return true
+            }
+        }
+    }
+
+
 
 
 
