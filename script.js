@@ -58,6 +58,7 @@ function setGame() {
 function setJeton() {
     if (GameOver) {
         ClearBoard()
+        GameOver = false
         return
     }
 
