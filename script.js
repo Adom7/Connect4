@@ -131,7 +131,7 @@ function gagner(line, column, currentPlayer) {
     // let Right = false
     // let TopRight = false
 
-    // Victoire Vertical
+    // Victoire Vertical Fait
     try {
         if (board[line + 1][column] !== undefined) {
             if (board[line + 1][column] == currentPlayer && board[line + 2][column] == currentPlayer && board[line + 3][column] == currentPlayer) {
@@ -179,6 +179,53 @@ function gagner(line, column, currentPlayer) {
     } catch (error) {
         console.log(error);
     }
+
+
+
+    // Victoire Diagonal (8 possibilité)
+
+    try {
+        // diagonal de topleft à bottom right
+        // 3 BottomLeft
+        if (board[line + 1][column + 1] == currentPlayer && board[line + 2][column + 2] == currentPlayer && board[line + 3][column + 3] == currentPlayer) {
+            return true
+        }
+        // 1 TopLeft 2BottomRight
+        if (board[line - 1][column - 1] == currentPlayer && board[line + 1][column + 1] == currentPlayer && board[line + 2][column + 2] == currentPlayer) {
+            return true
+        }
+        // 2 TopLeft 1BottomRight
+        if (board[line - 1][column - 1] == currentPlayer && board[line - 2][column - 2] == currentPlayer && board[line + 1][column + 1] == currentPlayer) {
+            return true
+        }
+        // 3 TopLeft
+        if (board[line - 1][column - 1] == currentPlayer && board[line - 2][column - 2] == currentPlayer && board[line - 3][column - 3] == currentPlayer) {
+            return true
+        }
+        // Diagonal de BottomLeft à TopRight
+        // 3 BottomLeft
+        if (board[line + 1][column - 1] && board[line + 2][column - 2] && board[line + 3][column - 3] == currentPlayer) {
+            return true
+        }
+        // 2 BottomLeft 1 TopRight
+        if (board[line + 1][column - 1] && board[line + 2][column - 2] && board[line - 1][column + 1] == currentPlayer) {
+            return true
+        }
+        // 1 BottomLeft 2 TopRight
+        if (board[line + 1][column - 1] && board[line - 1][column + 1] && board[line - 2][column + 2] == currentPlayer) {
+            return true
+        }
+        // 3 TopRight
+        if (board[line - 1][column + 1] && board[line - 2][column + 2] && board[line - 3][column + 3] == currentPlayer) {
+            return true
+        }
+        else {
+            return false
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
 
 
     console.log(line, column, currentPlayer);
