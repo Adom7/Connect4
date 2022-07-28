@@ -8,6 +8,31 @@ window.onload = function () {
     setGame();
 }
 
+let ButtonClear = document.getElementById('ResetBoard')
+
+ButtonClear.addEventListener('click', ClearBoard)
+
+function ClearBoard() {
+    board = [
+        ['', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '']
+    ]
+
+    for (let ligne = 0; ligne < 6; ligne++) {
+        for (let colonne = 0; colonne < 7; colonne++) {
+            document.getElementById([ligne] + '-' + [colonne]).innerText = null
+            document.getElementById([ligne] + '-' + [colonne]).style.background = null
+        }
+    }
+
+    console.log(board);
+}
+
+
 function setGame() {
     board = [
         ['', '', '', '', '', '', ''],
@@ -17,12 +42,11 @@ function setGame() {
         ['', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '']
     ]
-    // Ou x = ligne and y = colonne
     for (let ligne = 0; ligne < 6; ligne++) {
         for (let colonne = 0; colonne < 7; colonne++) {
             let jeton = document.createElement('div');
             jeton.id = ligne.toString() + "-" + colonne.toString();
-            // <div id='x-y'></div> 
+            // <div id='ligne-colonne'></div> 
             jeton.classList.add('jeton')
             jeton.addEventListener('click', setJeton);
             document.getElementById('board').append(jeton)
@@ -44,7 +68,7 @@ function setJeton() {
     console.log(this);
 
     function LowestLigne(y) {
-        for (let x = 5; x > 0; x--) {
+        for (let x = 5; x >= 0; x--) {
             const XYCheck = board[x][y]
             if (XYCheck == '') {
                 console.log(x);
@@ -67,6 +91,3 @@ function setJeton() {
     else
         currentPlayer = PlayerR
 }
-// Grâce à CheckifSupported on verifie qu'il y a bien un jeton sous le jeton que nous souhaitons placer, si non on place le jeton a la position la plus basse soit le y le plus elevé (Voir schéma)
-
-// il manque pour le moment la logique pour voir qui gagne , la 'gravité' l'obligation de jouer en bas du plateau , et d'avoir un jeton sous le nouveau jeton pour le placer
