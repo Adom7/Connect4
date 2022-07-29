@@ -1,11 +1,24 @@
+:root{
+    --main-bg-color : #095256;
+    --main-text-color : #1A1423;
+    --red-jeton : #A63D40 ;
+    --yellow-jeton : #E9B872 ;
+    --clear-color : #7C9EB2;
+}
+
+
+html{
+    background-color: var(--main-bg-color);
+}
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto Mono', monospace;
     text-align: center;
+    color: var(--main-text-color);
 }
 
 hr {
-    width: 500px;
-    background-color: grey;
+    width: 700px;
+    color: var(--main-text-color);
     height: 2px;
 }
 
@@ -13,7 +26,7 @@ hr {
 #board{
     width: 350px;
     height: 300px;
-    border: 3px solid blue;
+    border: 3px solid blanchedalmond;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
