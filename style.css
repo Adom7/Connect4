@@ -1,5 +1,5 @@
 :root{
-    --main-bg-color : #095256;
+    --main-bg-color : #E6E1C5;
     --main-text-color : #1A1423;
     --red-jeton : #A63D40 ;
     --yellow-jeton : #E9B872 ;
@@ -16,26 +16,25 @@ body {
     color: var(--main-text-color);
 }
 
-hr {
-    width: 700px;
-    color: var(--main-text-color);
-    height: 2px;
-}
-
-
 #board{
-    width: 350px;
-    height: 300px;
-    border: 3px solid blanchedalmond;
+    width: 700px;
+    height: 600px;
+    border: 3px solid var(--clear-color) ;
+    border-radius: 10px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
 
 .jeton{
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
+}
+
+h6 {
+    text-align: center;
 }

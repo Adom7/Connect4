@@ -1,6 +1,6 @@
 var board;
-var PlayerR = ['red', '#A63D40']
-var PlayerY = ['yellow', '#E9B872']
+var PlayerR = ['Red', '#A63D40']
+var PlayerY = ['Rellow', '#E9B872']
 var currentPlayer = PlayerR;
 var GameOver = false
 
@@ -80,8 +80,8 @@ function setJeton() {
     board[LowestPlayable][colonne] = currentPlayer[0];
     document.getElementById([LowestPlayable] + '-' + [colonne]).style.backgroundColor = currentPlayer[1]
 
-    if (gagner(LowestPlayable, colonne, currentPlayer) == true) {
-        console.log(currentPlayer + '  Won the Game , Congrats');
+    if (MatchOver(LowestPlayable, colonne, currentPlayer) == true) {
+        window.alert('🥳 ' + currentPlayer[0] + ` Player Won the game Congrats !! 🥳  Let's play again !😉`)
         return GameOver = true
     }
 
@@ -96,7 +96,7 @@ function setJeton() {
 }
 
 
-function gagner(line, column, currentPlayer) {
+function MatchOver(line, column, currentPlayer) {
     //NOTE 
     // Une fois un jeton jouer, il faut verifier si le joueur a gagner, Pour voir si un jouer a gagner, il faut d'abord verifier si il y a un jeton de même couleur adjacent a ce jeton
     // Nous avons donc dans le 'pire' des cas 7 jetons adjacent a verifier Top-Left, Left, Bottom-left, Bottom, Bottom-Right, Right et Top-Right 
@@ -127,18 +127,12 @@ function gagner(line, column, currentPlayer) {
             count = board[index][column] == currentPlayer[0] ? count + 1 : 0;
             if (count >= 4) return true
         }
-        // if (board[line + 1][column] == currentPlayer[0] && board[line + 2][column] == currentPlayer[0] && board[line + 3][column] == currentPlayer[0]) {
-        //     return true
-        // }
-        // else {
-        //     return false
-        // }
     } catch (error) {
         console.log(error);
     }
 
 
-    // Victoire Horizontal FAIT (Pas super beau comme code , peut mieux faire , mais c'est fonctionnel)
+    // Victoire Horizontal FAIT 
     try {
         count = 0;
         for (let i = 0; i <= 7; i++) {
@@ -146,34 +140,13 @@ function gagner(line, column, currentPlayer) {
             console.log(count);
             if (count >= 4) return true
         }
-
-        // // Victoire 3 jeton droite
-        // if (board[line][column + 1] == currentPlayer[0] && board[line][column + 2] == currentPlayer[0] && board[line][column + 3] == currentPlayer[0]) {
-        //     return true
-        // }
-        // // Victoire 3 jeton gauche
-        // if (board[line][column - 1] == currentPlayer[0] && board[line][column - 2] == currentPlayer[0] && board[line][column - 3] == currentPlayer[0]) {
-        //     return true
-        // }
-        // //victoire 2 gauche 1 droite 
-        // if (board[line][column - 1] == currentPlayer[0] && board[line][column - 2] == currentPlayer[0] && board[line][column + 1] == currentPlayer[0]) {
-        //     return true
-        // }
-        // // victoire 2 droite 1 gauche
-        // if (board[line][column - 1] == currentPlayer[0] && board[line][column + 1] == currentPlayer[0] && board[line][column + 2] == currentPlayer[0]) {
-        //     return true
-        // }
-        // else {
-        //     return false
-        // }
-
     } catch (error) {
         console.log(error);
     }
 
 
 
-    // Victoire Diagonal (8 possibilité)
+    // Victoire Diagonal (8 possibilité) (Pas super beau comme code , peut mieux faire , mais c'est fonctionnel)
 
     try {
         // diagonal de topleft à bottom right
@@ -217,14 +190,16 @@ function gagner(line, column, currentPlayer) {
         console.log(error);
     }
 
-
-
-    console.log(line, column, currentPlayer);
-    console.log(board[line - 1][column - 1]);
-    console.log(board);
-
-
-
+    // Match nul 
+    count = 0
+    for (let i = 0; i < 7; i++) {
+        count = board[0][i] !== '' ? count + 1 : 0
+        if (count >= 6) {
+            window.alert(`Sadly no Winner this Time !`)
+            GameOver = true
+            return false
+        }
+    }
 
 
     return false
