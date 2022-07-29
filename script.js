@@ -125,7 +125,6 @@ function gagner(line, column, currentPlayer) {
         let count = 0
         for (let index = 5; index >= 0; index--) {
             count = board[index][column] == currentPlayer[0] ? count + 1 : 0;
-            console.log(count);
             if (count >= 4) return true
         }
         // if (board[line + 1][column] == currentPlayer[0] && board[line + 2][column] == currentPlayer[0] && board[line + 3][column] == currentPlayer[0]) {
@@ -141,25 +140,32 @@ function gagner(line, column, currentPlayer) {
 
     // Victoire Horizontal FAIT (Pas super beau comme code , peut mieux faire , mais c'est fonctionnel)
     try {
-        // Victoire 3 jeton droite
-        if (board[line][column + 1] == currentPlayer[0] && board[line][column + 2] == currentPlayer[0] && board[line][column + 3] == currentPlayer[0]) {
-            return true
+        count = 0;
+        for (let i = 0; i <= 7; i++) {
+            count = board[line][i] == currentPlayer[0] ? count + 1 : 0;
+            console.log(count);
+            if (count >= 4) return true
         }
-        // Victoire 3 jeton gauche
-        if (board[line][column - 1] == currentPlayer[0] && board[line][column - 2] == currentPlayer[0] && board[line][column - 3] == currentPlayer[0]) {
-            return true
-        }
-        //victoire 2 gauche 1 droite 
-        if (board[line][column - 1] == currentPlayer[0] && board[line][column - 2] == currentPlayer[0] && board[line][column + 1] == currentPlayer[0]) {
-            return true
-        }
-        // victoire 2 droite 1 gauche
-        if (board[line][column - 1] == currentPlayer[0] && board[line][column + 1] == currentPlayer[0] && board[line][column + 2] == currentPlayer[0]) {
-            return true
-        }
-        else {
-            return false
-        }
+
+        // // Victoire 3 jeton droite
+        // if (board[line][column + 1] == currentPlayer[0] && board[line][column + 2] == currentPlayer[0] && board[line][column + 3] == currentPlayer[0]) {
+        //     return true
+        // }
+        // // Victoire 3 jeton gauche
+        // if (board[line][column - 1] == currentPlayer[0] && board[line][column - 2] == currentPlayer[0] && board[line][column - 3] == currentPlayer[0]) {
+        //     return true
+        // }
+        // //victoire 2 gauche 1 droite 
+        // if (board[line][column - 1] == currentPlayer[0] && board[line][column - 2] == currentPlayer[0] && board[line][column + 1] == currentPlayer[0]) {
+        //     return true
+        // }
+        // // victoire 2 droite 1 gauche
+        // if (board[line][column - 1] == currentPlayer[0] && board[line][column + 1] == currentPlayer[0] && board[line][column + 2] == currentPlayer[0]) {
+        //     return true
+        // }
+        // else {
+        //     return false
+        // }
 
     } catch (error) {
         console.log(error);
