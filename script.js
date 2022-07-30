@@ -1,11 +1,15 @@
-var board;
+var board
 var PlayerR = ['Red', '#A63D40']
-var PlayerY = ['Rellow', '#E9B872']
+var PlayerY = ['Yellow', '#E9B872']
 var currentPlayer = PlayerR;
 var GameOver = false
+var nbLigne = 6
+var nbColonne = 7
+var NeedToWin = 4
+
 
 window.onload = function () {
-    setGame();
+    setGame()
 }
 
 let ButtonClear = document.getElementById('ResetBoard')
@@ -14,17 +18,22 @@ ButtonClear.addEventListener('click', ClearBoard)
 
 function ClearBoard() {
 
-    board = [
-        ['', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '']
-    ]
 
-    for (let ligne = 0; ligne < 6; ligne++) {
-        for (let colonne = 0; colonne < 7; colonne++) {
+    board = []
+
+    // board = [
+    //     ['', '', '', '', '', '', ''],
+    //     ['', '', '', '', '', '', ''],
+    //     ['', '', '', '', '', '', ''],
+    //     ['', '', '', '', '', '', ''],
+    //     ['', '', '', '', '', '', ''],
+    //     ['', '', '', '', '', '', '']
+    // ]
+
+    for (let ligne = 0; ligne < nbLigne; ligne++) {
+        board.push(new Array(nbColonne))
+        for (let colonne = 0; colonne < nbColonne; colonne++) {
+            board[ligne][colonne] = ''
             document.getElementById([ligne] + '-' + [colonne]).style.background = null
         }
     }
@@ -48,22 +57,22 @@ function setGame() {
             jeton.id = ligne.toString() + "-" + colonne.toString();
             // <div id='ligne-colonne'></div> 
             jeton.classList.add('jeton')
-            jeton.addEventListener('click', setJeton);
+            jeton.addEventListener('click', () => setJeton(ligne, colonne));
             document.getElementById('board').append(jeton)
         }
     }
 }
 
-function setJeton() {
+function setJeton(ligne, colonne) {
     if (GameOver) {
         ClearBoard()
         GameOver = false
         return
     }
 
-    let coords = this.id.split('-')
-    let ligne = parseInt(coords[0]);
-    let colonne = parseInt(coords[1]);
+    // let coords = this.id.split('-')
+    // let ligne = parseInt(coords[0]);
+    // let colonne = parseInt(coords[1]);
 
     // on recupére les coordonnées savoir où le joueur souhaite jouer, et appliquer notre logique au coup qu'il souhaite jouer
     let LowestPlayable = LowestLigne(colonne)
@@ -82,6 +91,7 @@ function setJeton() {
 
     if (MatchOver(LowestPlayable, colonne, currentPlayer) == true) {
         window.alert('🥳 ' + currentPlayer[0] + ` Player Won the game Congrats !! 🥳  Let's play again !😉`)
+        console.log(board);
         return GameOver = true
     }
 
@@ -127,6 +137,8 @@ function MatchOver(line, column, currentPlayer) {
             count = board[index][column] == currentPlayer[0] ? count + 1 : 0;
             if (count >= 4) return true
         }
+
+
     } catch (error) {
         console.log(error);
     }
@@ -137,7 +149,24 @@ function MatchOver(line, column, currentPlayer) {
         count = 0;
         for (let i = 0; i <= 7; i++) {
             count = board[line][i] == currentPlayer[0] ? count + 1 : 0;
-            console.log(count);
+            if (count >= 4) return true
+        }
+
+
+    } catch (error) {
+        console.log(error);
+    }
+
+    // Victoire Diagonal '\'
+
+    console.log(`Piece Jouer ligne : ${line} et colonne : ${column} `);
+
+    try {
+        // fonctionnne mais erreur lorsque line ou column sortent du board
+        count = 0
+        for (let i = -3; i <= 3; i++) {
+            count = board[line + i][column + i] == currentPlayer[0] ? count + 1 : 0;
+            console.log(i);
             if (count >= 4) return true
         }
     } catch (error) {
@@ -146,49 +175,67 @@ function MatchOver(line, column, currentPlayer) {
 
 
 
+
+    // var directions = [
+    //     [-1, 1],
+    //     [-1, -1],
+    //     [1, -1],
+    //     [1, 1]
+    // ]
+
+    // for (let i = 0; i < directions.length; i++) {
+    //     count = 0
+    //     const direction = directions[i];
+    //     for (let j = 0; j < NeedToWin; j++) {
+    //         count = board[line + (j * direction[0])][column + (j * direction[1])] = currentPlayer[0] ? count + 1 : 0
+    //         if (count >= NeedToWin) return true
+    //     }
+
+    // }
+
     // Victoire Diagonal (8 possibilité) (Pas super beau comme code , peut mieux faire , mais c'est fonctionnel)
 
-    try {
-        // diagonal de topleft à bottom right
-        // 3 BottomLeft
-        if (board[line + 1][column + 1] == currentPlayer[0] && board[line + 2][column + 2] == currentPlayer[0] && board[line + 3][column + 3] == currentPlayer[0]) {
-            return true
-        }
-        // 1 TopLeft 2BottomRight
-        if (board[line - 1][column - 1] == currentPlayer[0] && board[line + 1][column + 1] == currentPlayer[0] && board[line + 2][column + 2] == currentPlayer[0]) {
-            return true
-        }
-        // 2 TopLeft 1BottomRight
-        if (board[line - 1][column - 1] == currentPlayer[0] && board[line - 2][column - 2] == currentPlayer[0] && board[line + 1][column + 1] == currentPlayer[0]) {
-            return true
-        }
-        // 3 TopLeft
-        if (board[line - 1][column - 1] == currentPlayer[0] && board[line - 2][column - 2] == currentPlayer[0] && board[line - 3][column - 3] == currentPlayer[0]) {
-            return true
-        }
-        // Diagonal de BottomLeft à TopRight
-        // 3 BottomLeft
-        if (board[line + 1][column - 1] == currentPlayer[0] && board[line + 2][column - 2] == currentPlayer[0] && board[line + 3][column - 3] == currentPlayer[0]) {
-            return true
-        }
-        // 2 BottomLeft 1 TopRight
-        if (board[line + 1][column - 1] == currentPlayer[0] && board[line + 2][column - 2] == currentPlayer[0] && board[line - 1][column + 1] == currentPlayer[0]) {
-            return true
-        }
-        // 1 BottomLeft 2 TopRight
-        if (board[line + 1][column - 1] == currentPlayer[0] && board[line - 1][column + 1] == currentPlayer[0] && board[line - 2][column + 2] == currentPlayer[0]) {
-            return true
-        }
-        // 3 TopRight
-        if (board[line - 1][column + 1] == currentPlayer[0] && board[line - 2][column + 2] == currentPlayer[0] && board[line - 3][column + 3] == currentPlayer[0]) {
-            return true
-        }
-        else {
-            return false
-        }
-    } catch (error) {
-        console.log(error);
-    }
+    // try {
+    //     // diagonal de topleft à bottom right
+    //     // 3 BottomLeft
+    //     if (board[line + 1][column + 1] == currentPlayer[0] && board[line + 2][column + 2] == currentPlayer[0] && board[line + 3][column + 3] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     // 1 TopLeft 2BottomRight
+    //     if (board[line - 1][column - 1] == currentPlayer[0] && board[line + 1][column + 1] == currentPlayer[0] && board[line + 2][column + 2] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     // 2 TopLeft 1BottomRight
+    //     if (board[line - 1][column - 1] == currentPlayer[0] && board[line - 2][column - 2] == currentPlayer[0] && board[line + 1][column + 1] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     // 3 TopLeft
+    //     if (board[line - 1][column - 1] == currentPlayer[0] && board[line - 2][column - 2] == currentPlayer[0] && board[line - 3][column - 3] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     // Diagonal de BottomLeft à TopRight
+    //     // 3 BottomLeft
+    //     if (board[line + 1][column - 1] == currentPlayer[0] && board[line + 2][column - 2] == currentPlayer[0] && board[line + 3][column - 3] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     // 2 BottomLeft 1 TopRight
+    //     if (board[line + 1][column - 1] == currentPlayer[0] && board[line + 2][column - 2] == currentPlayer[0] && board[line - 1][column + 1] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     // 1 BottomLeft 2 TopRight
+    //     if (board[line + 1][column - 1] == currentPlayer[0] && board[line - 1][column + 1] == currentPlayer[0] && board[line - 2][column + 2] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     // 3 TopRight
+    //     if (board[line - 1][column + 1] == currentPlayer[0] && board[line - 2][column + 2] == currentPlayer[0] && board[line - 3][column + 3] == currentPlayer[0]) {
+    //         return true
+    //     }
+    //     else {
+    //         return false
+    //     }
+    // } catch (error) {
+    //     console.log(error);
+    // }
 
     // Match nul 
     count = 0
