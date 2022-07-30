@@ -177,13 +177,15 @@ function MatchOver(line, column, currentPlayer) {
 
     // Victoire Anti-Diagonal '/'
 
-    // for (let i = ((nbLigne - 1) - line); i >= -3; i--) {
-    //     count = board[line + i][column - i] == currentPlayer[0] ? count + 1 : 0;
-    //     console.log(`line : ${line + i}`);
-    //     console.log(`column : ${column - i}`);
-    //     if (count >= 4) return true
-    // }
-
+    try {
+        count = 0
+        for (let i = ((nbLigne - 1) - line); i >= -3; i--) {
+            count = board[line + i][column - i] == currentPlayer[0] ? count + 1 : 0;
+            if (count >= 4) return true
+        }
+    } catch (error) {
+        console.log(error);
+    }
 
 
 
