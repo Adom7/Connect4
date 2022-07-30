@@ -135,7 +135,7 @@ function MatchOver(line, column, currentPlayer) {
         let count = 0
         for (let index = 5; index >= 0; index--) {
             count = board[index][column] == currentPlayer[0] ? count + 1 : 0;
-            if (count >= 4) return true
+            if (count >= NeedToWin) return true
         }
 
 
@@ -149,7 +149,7 @@ function MatchOver(line, column, currentPlayer) {
         count = 0;
         for (let i = 0; i <= 7; i++) {
             count = board[line][i] == currentPlayer[0] ? count + 1 : 0;
-            if (count >= 4) return true
+            if (count >= NeedToWin) return true
         }
 
 
@@ -167,7 +167,7 @@ function MatchOver(line, column, currentPlayer) {
         count = 0
         for (let i = ((nbLigne - 1) - line); i >= -3; i--) {
             count = board[line + i][column + i] == currentPlayer[0] ? count + 1 : 0;
-            if (count >= 4) return true
+            if (count >= NeedToWin) return true
         }
     } catch (error) {
         console.log(error);
@@ -181,74 +181,13 @@ function MatchOver(line, column, currentPlayer) {
         count = 0
         for (let i = ((nbLigne - 1) - line); i >= -3; i--) {
             count = board[line + i][column - i] == currentPlayer[0] ? count + 1 : 0;
-            if (count >= 4) return true
+            if (count >= NeedToWin) return true
         }
     } catch (error) {
         console.log(error);
     }
 
 
-
-    // var directions = [
-    //     [-1, 1],
-    //     [-1, -1],
-    //     [1, -1],
-    //     [1, 1]
-    // ]
-
-    // for (let i = 0; i < directions.length; i++) {
-    //     count = 0
-    //     const direction = directions[i];
-    //     for (let j = 0; j < NeedToWin; j++) {
-    //         count = board[line + (j * direction[0])][column + (j * direction[1])] = currentPlayer[0] ? count + 1 : 0
-    //         if (count >= NeedToWin) return true
-    //     }
-
-    // }
-
-    // Victoire Diagonal (8 possibilité) (Pas super beau comme code , peut mieux faire , mais c'est fonctionnel)
-
-    // try {
-    //     // diagonal de topleft à bottom right
-    //     // 3 BottomLeft
-    //     if (board[line + 1][column + 1] == currentPlayer[0] && board[line + 2][column + 2] == currentPlayer[0] && board[line + 3][column + 3] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     // 1 TopLeft 2BottomRight
-    //     if (board[line - 1][column - 1] == currentPlayer[0] && board[line + 1][column + 1] == currentPlayer[0] && board[line + 2][column + 2] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     // 2 TopLeft 1BottomRight
-    //     if (board[line - 1][column - 1] == currentPlayer[0] && board[line - 2][column - 2] == currentPlayer[0] && board[line + 1][column + 1] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     // 3 TopLeft
-    //     if (board[line - 1][column - 1] == currentPlayer[0] && board[line - 2][column - 2] == currentPlayer[0] && board[line - 3][column - 3] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     // Diagonal de BottomLeft à TopRight
-    //     // 3 BottomLeft
-    //     if (board[line + 1][column - 1] == currentPlayer[0] && board[line + 2][column - 2] == currentPlayer[0] && board[line + 3][column - 3] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     // 2 BottomLeft 1 TopRight
-    //     if (board[line + 1][column - 1] == currentPlayer[0] && board[line + 2][column - 2] == currentPlayer[0] && board[line - 1][column + 1] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     // 1 BottomLeft 2 TopRight
-    //     if (board[line + 1][column - 1] == currentPlayer[0] && board[line - 1][column + 1] == currentPlayer[0] && board[line - 2][column + 2] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     // 3 TopRight
-    //     if (board[line - 1][column + 1] == currentPlayer[0] && board[line - 2][column + 2] == currentPlayer[0] && board[line - 3][column + 3] == currentPlayer[0]) {
-    //         return true
-    //     }
-    //     else {
-    //         return false
-    //     }
-    // } catch (error) {
-    //     console.log(error);
-    // }
 
     // Match nul 
     count = 0
