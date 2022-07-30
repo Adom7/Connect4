@@ -161,17 +161,22 @@ function MatchOver(line, column, currentPlayer) {
 
     console.log(`Piece Jouer ligne : ${line} et colonne : ${column} `);
 
-    try {
-        // fonctionnne mais erreur lorsque line ou column sortent du board
-        count = 0
-        for (let i = -3; i <= 3; i++) {
-            count = board[line + i][column + i] == currentPlayer[0] ? count + 1 : 0;
-            console.log(i);
-            if (count >= 4) return true
-        }
-    } catch (error) {
-        console.log(error);
+    // fonctionnne , on cherche le i le plus haut possible donc i = (nbColonne-1) - line
+    count = 0
+    for (let i = ((nbLigne - 1) - line); i >= -3; i--) {
+        count = board[line + i][column + i] == currentPlayer[0] ? count + 1 : 0;
+        if (count >= 4) return true
     }
+
+
+    // Victoire Anti-Diagonal '/'
+
+    // for (let i = ((nbLigne - 1) - line); i >= -3; i--) {
+    //     count = board[line + i][column - i] == currentPlayer[0] ? count + 1 : 0;
+    //     console.log(`line : ${line + i}`);
+    //     console.log(`column : ${column - i}`);
+    //     if (count >= 4) return true
+    // }
 
 
 
